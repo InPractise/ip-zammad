@@ -261,6 +261,7 @@
 
 body {
   background: var(--gray-100);
+  border-top: 5px solid var(--orange-400);
 }
 
 .box,
@@ -306,4 +307,16 @@ ul.sections.sections--list {
 /* Specificity war */
 .sections--grid.sections--grid .section-inner i {
   margin: 0;
+}
+
+.result + .result {
+  margin-top: var(--size-03);
+}
+
+.result em {
+  background: var(--orange-400);
+  color: white;
+  padding: var(--size-01) var(--size-02);
+  font-style: normal;
+  border-radius: var(--border-radius-2);
 }
