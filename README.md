@@ -1,47 +1,52 @@
-# Welcome to Zammad
+# ip-zammad
 
-Zammad is a web based open source helpdesk/customer support system with many
-features to manage customer communication via several channels like telephone,
-facebook, twitter, chat and e-mails. It is distributed under version 3 of the
-GNU AFFERO General Public License (GNU AGPLv3).
+Custom version of Zammad. [Original README.md](./ORIG_README.md).
 
-Do you receive many e-mails and want to answer them with a team of agents?
+# Initial Setup
 
-You're going to love Zammad!
+Installed in Ubuntu 20.
 
-## Status
+```sh
+# Follow requirements https://docs.zammad.org/en/latest/prerequisites/software.html
+# Installed some libraries
+# Installed Elasticsearch locally https://docs.zammad.org/en/latest/install/elasticsearch.html
+# PostgreSQL was installed and configured
+# Pulled source code to /opt/zammad
+# Follow instructions here https://docs.zammad.org/en/latest/install/source.html
+# Add database config
+```
 
-- CI: ![ci](https://github.com/zammad/zammad/workflows/ci/badge.svg)
-- Build Docker images: ![build-docker-compose-images](https://github.com/zammad/zammad/workflows/build-docker-compose-images/badge.svg) ![build-docker-image](https://github.com/zammad/zammad/workflows/build-docker-image/badge.svg)
-- Code: [![Code Climate](https://codeclimate.com/github/zammad/zammad/badges/gpa.svg)](https://codeclimate.com/github/zammad/zammad) [![Coverage Status](https://coveralls.io/repos/github/zammad/zammad/badge.svg)](https://coveralls.io/github/zammad/zammad)
-- Docs: [![Documentation Status](https://readthedocs.org/projects/zammad/badge/)](https://docs.zammad.org)
-- Issues: [![Percentage of issues still open](http://isitmaintained.com/badge/open/zammad/zammad.svg)](https://github.com/zammad/zammad/issues "Percentage of issues still open") [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/zammad/zammad.svg)](https://github.com/zammad/zammad/issues?q=is%3Aissue+is%3Aclosed "Average time to resolve an issue")
-- Download DEB/RPM: [![](https://img.shields.io/badge/Branch-develop-lightgrey.svg)](https://packager.io/gh/zammad/zammad#develop) [![](https://img.shields.io/badge/Branch-stable-lightgrey.svg)](https://packager.io/gh/zammad/zammad#stable)
-- Docker multi container image: [![](https://images.microbadger.com/badges/image/zammad/zammad-docker-compose:zammad.svg)](https://microbadger.com/images/zammad/zammad-docker-compose:zammad) [![](https://img.shields.io/badge/version-stable-blue.svg)](https://hub.docker.com/r/zammad/zammad-docker-compose)
-- Docker single container image: [![](https://images.microbadger.com/badges/image/zammad/zammad.svg)](https://microbadger.com/images/zammad/zammad) [![](https://images.microbadger.com/badges/version/zammad/zammad.svg)](https://hub.docker.com/r/zammad/zammad/)
-- Vagrant: [![](https://img.shields.io/badge/version-develop-blue.svg)](https://github.com/zammad/zammad-vagrant)
-- License: [![](https://img.shields.io/badge/License-AGPL%203.0-lightgrey.svg)](https://github.com/zammad/zammad/blob/develop/LICENSE)
+Then configured the actual application:
 
-## Installing & Getting Started
+- Enabled SMTP in Google Workspace
+- Created app password for support user
+- Configured SMTP and IMAP in the application
+- Configured DNS
+- Other configurations
 
-https://docs.zammad.org
+# Rebuild assets
 
+To rebuild the assets:
 
-## Screenshots
+```sh
+cd /opt/zammad
+git pull
 
-https://zammad.org/screenshots
+su - zammad
+cd /opt/zammad
+export RAILS_ENV=production
+export RAILS_SERVE_STATIC_FILES=true
+rake assets:precompile
+exit
 
+systemctl restart zammad
+systemctl restart nginx
+```
 
-## REST API
+# Check logs
 
-https://docs.zammad.org/en/latest/api/intro.html
-
-
-## Contributing
-
-https://zammad.org/participate
-
-
-Thanks! ❤️ ❤️ ❤️
-
- Your Zammad Team
+```
+less +F /opt/zammad/log/production.log
+less +F /opt/zammad/log/scheduler_err.log
+less +F /opt/zammad/log/scheduler_out.log
+```
