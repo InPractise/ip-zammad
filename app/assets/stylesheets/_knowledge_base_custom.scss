@@ -259,6 +259,10 @@
   --orange-900: #2b1a00;
 }
 
+body {
+  background: var(--gray-100);
+}
+
 .box,
 .sections--list .section-inner,
 .sections--grid .section-inner,
@@ -271,6 +275,17 @@
   background: linear-gradient(to bottom, var(--blue-800), var(--blue-700));
 }
 
-.menu-item {
+.header .menu-item {
   color: var(--gray-100);
+}
+
+.result a {
+  background: var(--gray-100);
+  border-radius: var(--border-radius-3);
+  border: none;
+}
+
+.result a:hover {
+  background: var(--white);
+  border-radius: var(--border-radius-3);
 }
