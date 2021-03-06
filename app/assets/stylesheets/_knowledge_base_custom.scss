@@ -298,3 +298,12 @@ body {
 ul.sections.sections--list {
   padding-left: 0;
 }
+
+.sections--grid .section-inner > * + * {
+  margin-top: var(--size-04);
+}
+
+/* Specificity war */
+.sections--grid.sections--grid .section-inner i {
+  margin: 0;
+}
