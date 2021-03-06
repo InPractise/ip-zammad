@@ -289,3 +289,12 @@ body {
   background: var(--white);
   border-radius: var(--border-radius-3);
 }
+
+.main .container > ul,
+.main .container > ol {
+  padding-left: 0;
+}
+
+ul.sections.sections--list {
+  padding-left: 0;
+}
